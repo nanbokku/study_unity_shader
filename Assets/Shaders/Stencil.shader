@@ -9,12 +9,10 @@
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent" "IgnoreProjector"="True" }
+        Tags { "RenderType"="Opaque" "Queue"="Transparent" }
         LOD 100
-        // ZTest always    // 常に前面に表示される（後ろに隠れている部分が描画されないため）
-        ZWrite Off
-        Cull Off
-        Blend SrcAlpha OneMinusSrcAlpha
+        ZTest Always    // 常に前面に表示させる
+        ZWrite Off  // 他のメッシュと干渉する可能性がある？
 
         Pass
         {
