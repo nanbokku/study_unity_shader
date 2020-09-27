@@ -46,7 +46,7 @@
             float4 _HiddenTex_ST;
             float _Slope;                   // めくるときの傾き
             float3 _BottomPointPosition;    // 紙の下にある頂点どちらかの位置(傾きで決まる)
-            float _Speed;
+            float _Speed;                   // めくるスピード
 
             v2f vert (appdata v)
             {
