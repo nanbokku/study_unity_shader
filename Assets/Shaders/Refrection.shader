@@ -15,9 +15,6 @@
         Tags { "Queue"="Transparent" }
         LOD 100
 
-        //! alpha * (生成した色) + (1 - alpha) * (既に描画されている色)
-        Blend SrcAlpha OneMinusSrcAlpha
-
         GrabPass    //! オブジェクトの背景画をテクスチャとして取得できるようになる
         { "_GrabPassTexture" }
 
