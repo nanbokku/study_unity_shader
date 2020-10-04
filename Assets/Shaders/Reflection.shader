@@ -7,6 +7,8 @@
         _DiffuseCoef ("DiffuseCoef", Float) = 1
         _SpecularCoef ("SpecularCoef", Float) = 1
         _SpecularPower ("SpecularPower", Float) = 1
+        _RimCoef ("RimCoef", Float) = 1
+        _RimPower ("RimPower", Float) = 1
     }
     SubShader
     {
@@ -48,6 +50,8 @@
             fixed _DiffuseCoef;
             fixed _SpecularCoef;
             fixed _SpecularPower;
+            fixed _RimCoef;
+            fixed _RimPower;
 
             v2f vert (appdata v)
             {
@@ -77,8 +81,11 @@
                 // 反射ベクトル
                 fixed3 specular = _LightColor0.rgb * _SpecularCoef * pow(max(0, dot(R, i.eyeDirection)), _SpecularPower);
 
+                // リムライティング
+                fixed3 rim = _LightColor0 * _RimCoef * pow((1 - max(0, dot(i.normal, i.eyeDirection))), _RimPower);
+
                 fixed4 col = _Color * tex2D(_MainTex, i.uv);
-                col.rgb = col.rgb + diffuse + specular;
+                col.rgb = col.rgb + diffuse + specular + rim;
            
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
