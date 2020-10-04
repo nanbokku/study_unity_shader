@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ice
+  m_Name: Refrection
   m_Shader: {fileID: 4800000, guid: d66321f7d5ace5148b80fd2ece898959, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -60,6 +60,7 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _Distance: 4.5
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -68,6 +69,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RelativeRefraction: 1.333
+    - _RelativeRefractiveIndex: 0.75
     - _SmoothnessTextureChannel: 0
     - _SpecularCoef: 2
     - _SpecularHighlights: 1
