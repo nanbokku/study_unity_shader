@@ -82,6 +82,7 @@
 
                 // TODO: 屈折させたい
                 float2 uv = i.grabPos.xy / i.grabPos.w;
+                uv.y = uv.y * -1 + 1;               // 反転していたのでY軸反転
                 col = tex2D(_GrabTexture, uv);
                 return col;
             }
