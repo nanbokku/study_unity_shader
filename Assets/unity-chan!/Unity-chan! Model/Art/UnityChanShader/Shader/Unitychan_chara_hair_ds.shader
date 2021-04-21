@@ -15,6 +15,8 @@ Shader "UnityChan/Hair - Double-sided"
 		_NormalMapSampler ("Normal Map", 2D) = "" {} 
 		_OutlineWidth ("Outline Width", float) = 0.01
 		_OutlineColor ("Outline Color", Color) = (0, 0, 0, 1)
+		_BlightColor ("Blight Color", Color) = (1, 1, 1, 1)
+		_DarkColor ("Dark Color", Color) = (0, 0, 0, 1)
 	}
 
 	SubShader
@@ -78,6 +80,7 @@ CGPROGRAM
 #include "UnityCG.cginc"
 #include "AutoLight.cginc"
 #define ENABLE_NORMAL_MAP
+#define ENABLE_TOON
 #include "CharaMain.cg"
 ENDCG
 		}

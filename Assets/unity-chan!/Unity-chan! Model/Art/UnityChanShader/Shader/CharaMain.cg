@@ -27,6 +27,11 @@ sampler2D _NormalMapSampler;
 
 #ifdef ENABLE_CAST_SHADOWS
 
+#ifdef ENABLE_TOON
+float4 _BlightColor;
+float4 _DarkColor;
+#endif
+
 // Structure from vertex shader to fragment shader
 struct v2f
 {
@@ -161,6 +166,13 @@ float4 frag( v2f i ) : COLOR
 	combinedColor = lerp( combinedColor, reflectColor, reflectionMaskColor.a );
 	combinedColor *= _Color.rgb * _LightColor0.rgb;
 	float opacity = diffSamplerColor.a * _Color.a * _LightColor0.a;
+
+#ifdef ENABLE_TOON
+	float3 lightDir = normalize(_WorldSpaceLightPos0);
+	float NdotL = saturate(dot(i.normal, lightDir));
+	float4 toonColor = lerp(_BlightColor, _DarkColor, step(NdotL, 0.5));
+	combinedColor *= toonColor;
+#endif
 
 #ifdef ENABLE_CAST_SHADOWS
 	// Cast shadows
