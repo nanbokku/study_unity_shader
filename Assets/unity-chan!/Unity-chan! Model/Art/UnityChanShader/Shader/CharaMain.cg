@@ -29,7 +29,12 @@ sampler2D _NormalMapSampler;
 
 #ifdef ENABLE_TOON
 float4 _BlightColor;
+float4 _MidColor;
 float4 _DarkColor;
+float _ToonDiffuseAmbientBorderH;
+float _ToonDiffuseAmbientBorderL;
+float _ToonAmbientShadowBorderH;
+float _ToonAmbientShadowBorderL;
 #endif
 
 // Structure from vertex shader to fragment shader
@@ -163,14 +168,21 @@ float4 frag( v2f i ) : COLOR
 	float3_t reflectColor = tex2D( _EnvMapSampler, sphereMapCoords ).rgb;
 	reflectColor = GetOverlayColor( reflectColor, combinedColor );
 
-	combinedColor = lerp( combinedColor, reflectColor, reflectionMaskColor.a );
-	combinedColor *= _Color.rgb * _LightColor0.rgb;
+	//combinedColor = lerp( combinedColor, reflectColor, reflectionMaskColor.a );
+	//combinedColor *= _Color.rgb * _LightColor0.rgb;
 	float opacity = diffSamplerColor.a * _Color.a * _LightColor0.a;
 
 #ifdef ENABLE_TOON
 	float3 lightDir = normalize(_WorldSpaceLightPos0);
 	float NdotL = saturate(dot(i.normal, lightDir));
-	float4 toonColor = lerp(_BlightColor, _DarkColor, step(NdotL, 0.5));
+	float R = lerp(2 * i.normal * NdotL - lightDir, 0, step(NdotL, 0));
+	float RdotV = saturate(dot(R, i.eyeDir));
+	float lightLevel = NdotL + pow(RdotV, _SpecularPower);
+	lightLevel = lightLevel * 0.5;
+	float blendDiffuseAmbient = smoothstep(_ToonDiffuseAmbientBorderL, _ToonDiffuseAmbientBorderH, lightLevel);
+	float blendAmbientShadow = smoothstep(_ToonAmbientShadowBorderL, _ToonAmbientShadowBorderH, lightLevel);
+	float4 toonColor = lerp(_MidColor, _BlightColor, blendDiffuseAmbient);
+	toonColor = lerp(_DarkColor, toonColor, blendAmbientShadow);
 	combinedColor *= toonColor;
 #endif
 

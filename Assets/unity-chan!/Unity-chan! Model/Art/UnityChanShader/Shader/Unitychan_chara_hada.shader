@@ -12,8 +12,12 @@ Shader "UnityChan/Skin"
 		_OutlineWidth ("Outline Width", float) = 0.05
 		_OutlineColor ("Outline Color", Color) = (0, 0, 0, 1)
 		_BlightColor ("Blight Color", Color) = (1, 1, 1, 1)
+		_MidColor ("Mid Color", Color) = (0.5, 0.5, 0.5, 1)
 		_DarkColor ("Dark Color", Color) = (0, 0, 0, 1)
-		_ToonBorder ("Toon Border", Range(0, 1)) = 0.5
+		_ToonDiffuseAmbientBorderH ("ToonDiffuseAmbiendBorderH", Range(0, 1)) = 1
+		_ToonDiffuseAmbientBorderL ("ToonDiffuseAmbientBorderL", Range(0, 1)) = 0.7
+		_ToonAmbientShadowBorderH ("ToonAmbientShadowBorderH", Range(0, 1)) = 0.3
+		_ToonAmbientShadowBorderL ("ToonAmbiendShadowBorderL", Range(0, 1)) = 0
 	}
 
 	SubShader
